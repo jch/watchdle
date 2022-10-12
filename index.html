@@ -93,20 +93,20 @@
 
                 $("#guessList").append(li);
                 $("#inlineCheck"+guessCount).attr("checked", 1);
-                if (guessCount == 5) {
-                    reveal();
-                    return;
-                }
-
-                guessCount += 1;
-                loadImage(guessCount);
-
                 if (puzzle.nicknames.find(e => e.toLowerCase() == guess)) {
                     $("#guessList li:last").attr("class", "fw-bold text-success")
                     reveal();
                     return;
                 }
                 $("#guessField").val("");
+
+                if (guessCount > 4) {
+                    reveal();
+                    return;
+                }
+
+                guessCount += 1;
+                loadImage(guessCount);
             });
 
             setup();
