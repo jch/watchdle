@@ -86,6 +86,7 @@
             }
 
             $("#guessForm").submit(function(e) {
+                e.preventDefault();
                 var guess = document.getElementById("guessField").value || "";
                 guess = guess.trim().toLowerCase();
                 var li = $("<li>" + guess + "</li>");
@@ -103,7 +104,6 @@
                 if (puzzle.nicknames.find(e => e.toLowerCase() == guess)) {
                     $("#guessList li:last").attr("class", "fw-bold text-success")
                     reveal();
-                    e.preventDefault();
                     return;
                 }
                 $("#guessField").val("");
