@@ -16,7 +16,6 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-
     </head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-M8Q26XQ26X"></script>
@@ -34,7 +33,9 @@
         <form id="guessForm" class="container text-center">
             <div class="mb-3">
                 <img id="guessImage" src="" class="img-fluid" />
-                <label for="guessImage" class="form-label fw-light fst-italic"><a id="puzzleSource" href="#">Source</a></label>
+                <p>
+                    <label for="guessImage" class="form-label fw-light fst-italic"><a id="puzzleSource" href="#">Source</a></label>
+                </p>
             </div>
             <div class="mb-3">
                 <div class="form-check-inline">
@@ -67,13 +68,13 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
         <script async defer>
             const puzzles = {
-                '2022-10-12': {name: 'Casio Edifice EF-527D', nicknames: ["Casio Edifice", "Casio EF-527D",], source: "https://www.reddit.com/r/casio/comments/y00q03/i_really_regret_selling_this_seems_to_be_pretty/"},
+                '2022-10-13': {name: 'Casio Edifice EF-527D', nicknames: ["Casio Edifice", "Casio EF-527D",], source: "https://www.reddit.com/r/casio/comments/y00q03/i_really_regret_selling_this_seems_to_be_pretty/"},
             };
 
             const date = new Date();
             const datePath =  [date.getFullYear(), date.getMonth()+1, date.getDate()].join("-");
             const puzzlePath = ['puzzles', datePath].join("/");
-            var guessCount = 1;
+            var guessCount = 0;
             var guess = "";
             var puzzle = puzzles[datePath];
 
@@ -96,26 +97,27 @@
 
             $("#guessForm").submit(function(e) {
                 e.preventDefault();
+                guessCount += 1;
                 var guess = document.getElementById("guessField").value || "";
                 guess = guess.trim().toLowerCase();
-                var li = $("<li>" + guess + "</li>");
 
-                $("#guessList").append(li);
-                $("#inlineCheck"+guessCount).attr("checked", 1);
+                if (guessCount > 4) {
+                    reveal();
+                }
+
+                if (guessCount <= 5) {
+                    var li = $("<li>" + guess + "</li>");
+                    $("#guessList").append(li);
+                    $("#inlineCheck"+guessCount).attr("checked", 1);
+                    $("#guessField").val("");
+                    loadImage(Math.min(5, guessCount+1));
+                }
+
                 if (puzzle.nicknames.find(e => e.toLowerCase() == guess)) {
                     $("#guessList li:last").attr("class", "fw-bold text-success")
                     reveal();
                     return;
                 }
-                $("#guessField").val("");
-
-                if (guessCount > 4) {
-                    reveal();
-                    return;
-                }
-
-                guessCount += 1;
-                loadImage(guessCount);
             });
 
             setup();
