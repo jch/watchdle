@@ -77,7 +77,7 @@
             };
 
             const date = new Date();
-            const datePath =  [date.getFullYear(), date.getMonth()+1, 17].join("-");
+            const datePath =  [date.getFullYear(), date.getMonth()+1, date.getDate()].join("-");
             const puzzlePath = ['puzzles', datePath].join("/");
             var guessCount = 0;
             var guess = "";
