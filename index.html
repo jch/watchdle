@@ -33,11 +33,12 @@
 
         gtag('config', 'G-M8Q26XQ26X');
     </script>
-    <body class="container">
+    <body class="container text-center">
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <form id="guessForm" class="container text-center">
+        <h1>Guess the watch. New watch daily</h1>
+        <form id="guessForm">
             <div class="mb-3">
                 <img id="guessImage" src="" class="img-fluid" style="max-height: 500px" />
                 <p>
@@ -81,7 +82,7 @@
             <div class="mb-3">
                 <input id="guessField" type="text" class="form-control" placeholder="Enter Make and Model eg: Rolex Daytona">
             </div>
-            <div class="form-text">
+            <div class="form-text mb-3">
                 <span>No idea? <a href="#" onclick="$('#guessForm').submit()">Skip to next clue</a></span>
             </div>
             <h2 id="answer" class="invisible"></h1>
